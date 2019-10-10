@@ -16,22 +16,28 @@
                     $cat_id = $row['cat_id'];
                     $cat_title = $row['cat_title'];
                     ?>
-                    <input value="<?php if (isset($cat_title)){echo $cat_title;}?>" type="text" class="form-control">
-                <?php }  } ?>
+                    <input value="<?php if (isset($cat_title)){echo $cat_title;}?>" type="text" name = "cat_title" class="form-control">
+                <?php }  } 
+                
+                if (isset($_POST['update_category'])){
+
+                    $the_cat_title = $_POST['cat_title'];
+    
+                    $query = "UPDATE  categories SET cat_title = '{$the_cat_title}' WHERE cat_id = '{$cat_id}'";
+                    $update_query = mysqli_query($con, $query);
+                    if(!$update_query){
+    
+                        die("QUERY FAILED" . mysqli_error($con));
+                    }
+    
+                }
+                
+                
+                
+                ?>
 
             <?php
-            if (isset($_POST['update_category'])){
-
-                $the_cat_title = $_POST['cat_title'];
-
-                $query = "UPDATE  categories SET cat_title = '{$the_cat_title}' WHERE cat_id = '{$cat_id}'";
-                $update_query = mysqli_query($con, $query);
-                if(!$update_query){
-
-                    die("QUERY FAILED" . mysqli_error($con));
-                }
-
-            }
+            
 
             ?>
             <!--                                <input type="text" name="cat_title" class="form-control">-->
@@ -40,6 +46,6 @@
 
         <div class="form-group">
 
-            <input type="submit" name="update_category" value="UpdateCategory" class="btn btn-primary">
+            <input type="submit" name="update_category" value="Update Category" class="btn btn-primary">
         </div>
     </form>
